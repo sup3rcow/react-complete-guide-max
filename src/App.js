@@ -19,6 +19,8 @@ class App extends Component { // function App()
         { name: 'Maz', age: 29 }
       ]
     });
+
+    console.log();
   }
 
   render() { // fuctional based component ne treba render() {}
