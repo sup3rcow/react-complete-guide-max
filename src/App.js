@@ -8,27 +8,58 @@ class App extends Component { // function App()
     persons: [
       { name: 'Max', age: 28 }, 
       { name: 'Maz', age: 29 }
-    ]
+    ],
+    showPersons: false
   };
 
-  switchNameHandler = () => { // koristis arrow function ako bi this bio referenciran na App class
-    // this.state.persons[0].name = 'Maxona'; // ne ovako!!
+  switchNameHandler = (newName) => { // koristis arrow function ako bi this bio referenciran na App class
     this.setState({ // metodu samo naledili iz Component class-e
       persons: [
-        { name: 'Maxona', age: 28 },
-        { name: 'Maz', age: 29 }
+        { name: newName, age: 28 },
+        { name: 'Maxonac', age: 29 }
       ]
     });
+  }
 
-    console.log();
+  nameChangeHandler(event) {
+    this.setState({
+      persons: [
+        { name: event.target.value, age: 28 },
+        { name: 'Maxonac', age: 29 }
+      ]
+    });
+  }
+
+  togglePersonsHandler = () => { // ako koristi arrow func, ne moras bind this u template-u
+    this.setState({
+      showPersons: !this.state.showPersons
+    });
   }
 
   render() { // fuctional based component ne treba render() {}
+    const style = {
+      backgroundColor: 'white',
+      font: 'inherit',
+      border: '1px solid blue',
+      padding: '8px',
+      cursor: 'pointer'
+    };
     return (
       <div className="App">
         <div>Hi, I'm a react app!!!</div>
-        <button onClick={this.switchNameHandler}>Switch name</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}>My hobies: Gaming.</Person>
+        <button style={style} onClick={this.togglePersonsHandler}>Switch name</button>
+
+        {this.state.showPersons ?
+        <div>
+          <Person
+          name={this.state.persons[0].name}
+          age={this.state.persons[0].age}
+          click={this.switchNameHandler.bind(this, 'Maxonac!')}
+          changed={this.nameChangeHandler.bind(this)}
+          >My hobies: Gaming.</Person>
+        </div>
+        : null}
+
       </div>
     );
   }
