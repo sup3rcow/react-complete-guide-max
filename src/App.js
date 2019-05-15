@@ -49,12 +49,15 @@ class App extends Component { // function App()
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age}
-          click={this.switchNameHandler.bind(this, 'Maxonac!')}
-          changed={this.nameChangeHandler.bind(this)}
-          >My hobies: Gaming.</Person>
+          {this.state.persons.map(p => {
+            return <Person
+                      name={p.name}
+                      age={p.age}
+                      click={this.switchNameHandler.bind(this, 'Maxonac!')}
+                      changed={this.nameChangeHandler.bind(this)}
+                      >My hobies: Gaming.
+                   </Person>
+          })}
         </div>
       );
     }
